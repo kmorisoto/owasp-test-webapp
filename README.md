@@ -1,14 +1,7 @@
-## Feature http-client documentation
+# full scan
 
-- [Micronaut Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
+localではipアドレス指定が必要
 
-## Feature views-thymeleaf documentation
-
-- [Micronaut Thymeleaf views documentation](https://micronaut-projects.github.io/micronaut-views/latest/guide/index.html#thymeleaf)
-
-- [https://www.thymeleaf.org/](https://www.thymeleaf.org/)
-
-## Feature security documentation
-
-- [Micronaut Micronaut Security documentation](https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html)
-
+```
+docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://192.168.1.12:8080/hello -g owasp/gen.conf -r owasp/testreport.html
+```
