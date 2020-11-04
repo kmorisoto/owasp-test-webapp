@@ -7,3 +7,4 @@ jobs:
     steps:
     - run: |
         echo "Hello World!"
+        ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1
