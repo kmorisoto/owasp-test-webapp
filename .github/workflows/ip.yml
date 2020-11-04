@@ -1,0 +1,15 @@
+name: IP Address
+on: workflow_dispatch
+    
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        run: |
+          address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
+          echo $address
+          echo '::set-output name=IP_ADDRESS::address'
+
+
+
