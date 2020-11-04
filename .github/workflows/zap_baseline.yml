@@ -6,9 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
+        id: setup
         run: |
           address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
-          echo '::set-output name=IP_ADDRESS::address'
+          echo '::set-output name=IP_ADDRESS::'$address
       - name: Checkout
         uses: actions/checkout@v2
         with:
