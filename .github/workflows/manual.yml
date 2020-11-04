@@ -2,7 +2,7 @@ name: ZAP workflow
 on: workflow_dispatch
     
 jobs:
-  hello:
+  zap:
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -12,6 +12,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
+      - name: Run app
+        run: |
+            ./gradlew run
 #       - name: ZAP Scan
 #         uses: zaproxy/action-baseline@v0.4.0
 #         with:
