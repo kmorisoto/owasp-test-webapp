@@ -54,5 +54,6 @@ compileTestKotlin {
     }
 }
 
-
-
+dockerfile {
+    baseImage = "amazoncorretto:11-alpine"
+}

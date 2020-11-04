@@ -18,10 +18,12 @@ jobs:
           
       - name: Run app
         run: |
-            ./gradlew run
+            ./gradlew buildLayers
+            ./gradlew dockerBuild
+            docker-compose up -d
       - name: Stop app
         run: |
-            ./gradlew --stop
+            docker-compose down
 #       - name: ZAP Scan
 #         uses: zaproxy/action-baseline@v0.4.0
 #         with:
