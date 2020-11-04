@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo '{{ github.ref }}'
+          echo ${{ github.ref }}
           ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: '{{ github.ref }}'
+          ref: ${{ github.ref }}
 #       - name: ZAP Scan
 #         uses: zaproxy/action-baseline@v0.4.0
 #         with:
