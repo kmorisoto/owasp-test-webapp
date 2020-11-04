@@ -9,7 +9,7 @@ jobs:
         run: |
           address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
           echo $address
-          echo "::set-output name=IP_ADDRESS::$address"
+          echo "::set-output name=IP_ADDRESS::"$address
       - name: test
         run: |
             echo ${{ steps.setup.outputs.IP_ADDRESS }}
