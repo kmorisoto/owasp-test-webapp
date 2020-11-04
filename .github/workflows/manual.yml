@@ -14,11 +14,23 @@ jobs:
           ref: ${{ github.ref }}
       - uses: actions/setup-java@v1
         with:
-          java-version: '11' 
+          java-version: '11'
+          
       - name: Run app
         run: |
             ./gradlew run
+      - name: Stop app
+        run: |
+            ./gradlew --stop
 #       - name: ZAP Scan
 #         uses: zaproxy/action-baseline@v0.4.0
 #         with:
 #           target: 'https://www.zaproxy.org'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
