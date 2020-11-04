@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
+        id: setup
         run: |
           address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
           echo $address
@@ -13,7 +14,4 @@ jobs:
       - name: test
         run: |
             echo ${{ steps.setup.outputs.IP_ADDRESS }}
-            echo A"${{ steps.setup.outputs.IP_ADDRESS }}"B
-
-
-
+            echo "A${{ steps.setup.outputs.IP_ADDRESS }}B"
