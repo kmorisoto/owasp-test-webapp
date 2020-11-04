@@ -7,7 +7,8 @@ jobs:
     steps:
       - name: setup
         run: |
-          echo '::set-output name=IP_ADDRESS::$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)'
+          address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
+          echo '::set-output name=IP_ADDRESS::address'
       - name: Checkout
         uses: actions/checkout@v2
         with:
