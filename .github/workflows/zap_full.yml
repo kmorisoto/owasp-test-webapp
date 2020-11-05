@@ -1,0 +1,41 @@
+name: ZAP Baseline workflow
+on: workflow_dispatch
+    
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        id: setup
+        run: |
+          address=$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
+          echo '::set-output name=IP_ADDRESS::'$address
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run app
+        run: |
+            ./gradlew buildLayers
+            ./gradlew dockerBuild
+            docker-compose up -d
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.2.0
+        with:
+          target: "http://${{ steps.setup.outputs.IP_ADDRESS }}:8080/hello"
+      - name: Stop app
+        run: |
+            docker-compose down
+
+
