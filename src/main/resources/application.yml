@@ -2,4 +2,13 @@ micronaut:
   application:
     name: demo
   security:
-    enabled: false
+    enabled: true
+    intercept-url-map:
+      - pattern: /hello
+        http-method: GET
+        access:
+          - isAnonymous()
+    authentication: session
+    redirect:
+      login-success: /
+      login-failure: /login/authFailed
